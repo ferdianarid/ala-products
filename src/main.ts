@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 require("dotenv/config")
 
-const PortRunning = process.env.SERVER_PORT
+const PortRunning = process.env.PORT_RUNNING
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
