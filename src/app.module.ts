@@ -6,20 +6,13 @@ import { UsersController } from './common/controllers/users.controller';
 import { UsersModule } from './modules/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppMiddleware } from './common/middlewares/app.middleware';
+import { config } from "../ormconfig"
+import { Users } from './entity/users.entity';
 
 require("dotenv/config")
 
 @Module({
-	imports: [TypeOrmModule.forRoot({
-		type: 'mysql',
-		host: process.env.DB_HOST,
-		port: 3306,
-		username: process.env.DB_USERNAME,
-		password: process.env.DB_PASSWORD,
-		database: process.env.DB_NAME,
-		autoLoadEntities: true,
-		synchronize: true,
-	}), UsersModule],
+	imports: [TypeOrmModule.forRoot(config), TypeOrmModule.forFeature([Users])],
 	controllers: [AppController, UsersController],
 	providers: [AppService, UsersService],
 })
@@ -30,3 +23,21 @@ export class AppModule implements NestModule {
 			.forRoutes('/')
 	}
 }
+
+
+/*TypeOrmModule.forRoot({
+		type: 'mysql',
+		host: process.env.DB_HOST,
+		port: 3306,
+		username: process.env.DB_USERNAME,
+		password: process.env.DB_PASSWORD,
+		database: process.env.DB_NAME,
+		autoLoadEntities: false,
+		migrations: [
+			"dist/src/database/migration/*.ts"
+		],
+		cli: {
+			migrationsDir: "src/database/migration"
+		},
+		synchronize: false,
+})*/
