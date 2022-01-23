@@ -6,7 +6,7 @@ import { Users } from "../entity/users.entity"
 import { LoggerMiddleware } from 'src/common/middlewares/logger.middleware';
 
 @Module({
-       imports: [TypeOrmModule.forFeature([Users])],
+       imports: [],
        controllers: [UsersController],
        providers: [UsersService]
 })
